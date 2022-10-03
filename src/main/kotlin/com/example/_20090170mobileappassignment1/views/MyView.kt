@@ -1,5 +1,6 @@
 package com.example._20090170mobileappassignment1.views
 
+import com.example._20090170mobileappassignment1.controllers.MainController
 import javafx.geometry.Orientation
 import javafx.scene.control.CheckBox
 import javafx.scene.control.DatePicker
@@ -7,9 +8,10 @@ import javafx.scene.control.TextField
 import tornadofx.*;
 import javafx.scene.layout.Priority
 import java.time.LocalDate
-import java.util.Date
 
 class MyView: View() {
+
+    private val mainController : MainController by inject()
 
     var brand: TextField by singleAssign()
     var year: TextField by singleAssign()
@@ -21,6 +23,9 @@ class MyView: View() {
     var fuelSource: TextField by singleAssign()
 
     override val root = hbox(20) {
+
+        mainController.connectToDatabase()
+
         form {
             fieldset("Add A Car") {
                 field("Brand") {
