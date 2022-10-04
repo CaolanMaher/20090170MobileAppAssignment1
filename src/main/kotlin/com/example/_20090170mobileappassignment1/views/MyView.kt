@@ -7,7 +7,9 @@ import javafx.scene.control.DatePicker
 import javafx.scene.control.TextField
 import tornadofx.*;
 import javafx.scene.layout.Priority
-import java.time.LocalDate
+import java.lang.Double.parseDouble
+//import jdk.internal.math.FloatingDecimal.parseDouble
+import java.sql.Date
 
 class MyView: View() {
 
@@ -54,7 +56,7 @@ class MyView: View() {
                 }
             }
             button("Add") {
-                action { test(0, brand.text, year.text, registration.text, 0.0, isAvailable.isSelected, dateRented.value, dateReturn.value, fuelSource.text) }
+                action { mainController.add(brand.text, year.text, registration.text, parseDouble(rate.text), isAvailable.isSelected, Date.valueOf(dateRented.value), Date.valueOf(dateReturn.value), fuelSource.text) }
             }
         }
         form {
@@ -123,7 +125,10 @@ class MyView: View() {
         }
     }
 
-    private fun test(id : Long, brand : String, year : String, registration : String, rate : Double, isAvailable : Boolean, dateRented : LocalDate, dateReturn : LocalDate, fuelSource : String) {
+    /*
+    private fun test(id : Long, brand : String, year : String, registration : String, rate : Double, isAvailable : Boolean, dateRented : Date, dateReturn : Date, fuelSource : String) {
         println("$id, $brand, $year, $registration, $rate, $isAvailable, $dateRented, $dateReturn, $fuelSource")
     }
+
+     */
 }
