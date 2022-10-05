@@ -4,6 +4,7 @@ import com.example._20090170mobileappassignment1.controllers.MainController
 import javafx.geometry.Orientation
 import javafx.scene.control.CheckBox
 import javafx.scene.control.DatePicker
+import javafx.scene.control.TextArea
 import javafx.scene.control.TextField
 import tornadofx.*;
 import javafx.scene.layout.Priority
@@ -35,6 +36,8 @@ class MyView: View() {
     var dateRentedUpdate: DatePicker by singleAssign()
     var dateReturnUpdate: DatePicker by singleAssign()
     var fuelSourceUpdate: TextField by singleAssign()
+
+    var textArea : TextArea by singleAssign()
 
     //var rs : ResultSet? = null
 
@@ -132,10 +135,10 @@ class MyView: View() {
                             action { println("Wrote to database!") }
                         }
                         button("Show All Cars") {
-                            action { println("Wrote to database!") }
+                            action { mainController.list(textArea) }
                         }
                     }
-                    textarea {
+                    textArea = textarea {
                         prefRowCount = 5
                         vgrow = Priority.ALWAYS
                         isEditable = false;
