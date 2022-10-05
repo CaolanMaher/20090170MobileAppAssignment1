@@ -125,7 +125,11 @@ class MainController: Controller() {
         //return rs
     }
 
-    fun delete() {
+    fun delete(id : Int) {
+        rs = st.executeQuery("SELECT * FROM `cars` WHERE ID = " + id)
 
+        if(rs.next()) {
+            rs.deleteRow()
+        }
     }
 }
