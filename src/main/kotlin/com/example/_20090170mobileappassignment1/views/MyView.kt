@@ -85,7 +85,8 @@ class MyView: View() {
                         action { mainController.search(parseInt(idToSearch.text), brandUpdate, yearUpdate, registrationUpdate, rateUpdate, isAvailableUpdate, dateRentedUpdate, dateReturnUpdate, fuelSourceUpdate) }
                     }
                     button("Delete") {
-                        action { println("Wrote to database!") }
+                        //TODO Add Validation
+                        action { mainController.delete(parseInt(idToSearch.text)) }
                     }
                 }
                 field("Brand") {
