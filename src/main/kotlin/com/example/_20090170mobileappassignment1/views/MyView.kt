@@ -1,6 +1,7 @@
 package com.example._20090170mobileappassignment1.views
 
 import com.example._20090170mobileappassignment1.controllers.MainController
+import javafx.collections.FXCollections
 import javafx.geometry.Orientation
 import javafx.scene.control.CheckBox
 import javafx.scene.control.DatePicker
@@ -16,6 +17,8 @@ import java.sql.ResultSet
 class MyView: View() {
 
     private val mainController : MainController by inject()
+
+    val filterOptions = FXCollections.observableArrayList("Brand", "FuelSource", "IsAvailable", "Year")
 
     var brand: TextField by singleAssign()
     var year: TextField by singleAssign()
@@ -127,15 +130,18 @@ class MyView: View() {
         form {
             fieldset("Data", labelPosition = Orientation.VERTICAL) {
                 field("See Rental Cars Here", Orientation.VERTICAL) {
+                    button("Show All Cars") {
+                        action { mainController.list(textArea) }
+                    }
                     hbox {
-                        field("Filter By Brand") {
+                        field("Filter By") {
+                            combobox<String> {
+                                items = filterOptions
+                            }
                             textfield()
-                        }
-                        button("Filter") {
-                            action { println("Wrote to database!") }
-                        }
-                        button("Show All Cars") {
-                            action { mainController.list(textArea) }
+                            button("Filter") {
+                                action { println("Wrote to database!") }
+                            }
                         }
                     }
                     textArea = textarea {
