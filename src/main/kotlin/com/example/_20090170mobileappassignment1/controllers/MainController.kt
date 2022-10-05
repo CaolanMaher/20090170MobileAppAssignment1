@@ -2,6 +2,7 @@ package com.example._20090170mobileappassignment1.controllers
 
 import javafx.scene.control.CheckBox
 import javafx.scene.control.DatePicker
+import javafx.scene.control.TextArea
 import javafx.scene.control.TextField
 import tornadofx.Controller
 import java.lang.Double.parseDouble
@@ -68,8 +69,24 @@ class MainController: Controller() {
         rs.moveToInsertRow()
     }
 
-    fun list() {
+    fun list(textArea : TextArea) {
+        rs = st.executeQuery("SELECT * FROM `cars`")
 
+        textArea.clear()
+
+        while(rs.next()) {
+            textArea.appendText("ID: " + rs.getString("id"))
+            textArea.appendText("\nBrand: " + rs.getString("brand"))
+            textArea.appendText("\nYear: " + rs.getString("year"))
+            textArea.appendText("\nRegistration: " + rs.getString("registration"))
+            textArea.appendText("\nRate: " + rs.getDouble("rate"))
+            textArea.appendText("\nIs Available: " + rs.getString("isAvailable"))
+            textArea.appendText("\nDate Rented: " + rs.getDate("dateRented"))
+            textArea.appendText("\nDate Return: " + rs.getDate("dateReturn"))
+            textArea.appendText("\nFuel Source: " + rs.getString("fuelSource"))
+            textArea.appendText("\n------------------------------------")
+            textArea.appendText("\n")
+        }
     }
 
     fun update(newBrand : String, newYear : String, newRegistration : String, newRate : Double, newIsAvailable : Boolean,
