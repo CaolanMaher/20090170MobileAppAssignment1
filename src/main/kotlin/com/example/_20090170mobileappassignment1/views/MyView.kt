@@ -8,8 +8,9 @@ import javafx.scene.control.TextField
 import tornadofx.*;
 import javafx.scene.layout.Priority
 import java.lang.Double.parseDouble
-//import jdk.internal.math.FloatingDecimal.parseDouble
+import java.lang.Integer.parseInt
 import java.sql.Date
+import java.sql.ResultSet
 
 class MyView: View() {
 
@@ -23,6 +24,19 @@ class MyView: View() {
     var dateRented: DatePicker by singleAssign()
     var dateReturn: DatePicker by singleAssign()
     var fuelSource: TextField by singleAssign()
+
+    var idToSearch : TextField by singleAssign()
+
+    var brandUpdate: TextField by singleAssign()
+    var yearUpdate: TextField by singleAssign()
+    var registrationUpdate: TextField by singleAssign()
+    var rateUpdate: TextField by singleAssign()
+    var isAvailableUpdate: CheckBox by singleAssign()
+    var dateRentedUpdate: DatePicker by singleAssign()
+    var dateReturnUpdate: DatePicker by singleAssign()
+    var fuelSourceUpdate: TextField by singleAssign()
+
+    //var rs : ResultSet? = null
 
     override val root = hbox(20) {
 
@@ -56,49 +70,54 @@ class MyView: View() {
                 }
             }
             button("Add") {
+                //TODO Add Validation
                 action { mainController.add(brand.text, year.text, registration.text, parseDouble(rate.text), isAvailable.isSelected, Date.valueOf(dateRented.value), Date.valueOf(dateReturn.value), fuelSource.text) }
             }
         }
         form {
             fieldset("Delete / Update A Car") {
                 field("ID") {
-                    textfield()
+                    idToSearch = textfield()
                 }
                 hbox {
                     button("Search") {
-                        action { println("Wrote to database!") }
+                        //TODO Add Validation
+                        action { mainController.search(parseInt(idToSearch.text), brandUpdate, yearUpdate, registrationUpdate, rateUpdate, isAvailableUpdate, dateRentedUpdate, dateReturnUpdate, fuelSourceUpdate) }
                     }
                     button("Delete") {
                         action { println("Wrote to database!") }
                     }
                 }
                 field("Brand") {
-                    textfield()
+                    brandUpdate = textfield()
                 }
                 field("Year") {
-                    datepicker()
+                    yearUpdate = textfield()
                 }
                 field("Registration") {
-                    textfield()
+                    registrationUpdate = textfield()
                 }
                 field("Rate") {
-                    textfield()
+                    rateUpdate = textfield()
                 }
                 field("Is Available") {
-                    checkbox()
+                    isAvailableUpdate = checkbox()
                 }
                 field("Date Rented") {
-                    datepicker()
+                    dateRentedUpdate = datepicker()
                 }
                 field("Date Return") {
-                    datepicker()
+                    dateReturnUpdate = datepicker()
                 }
                 field("Fuel Source") {
-                    textfield()
+                    fuelSourceUpdate = textfield()
                 }
             }
             button("Update") {
-                action { println("Wrote to database!") }
+                action {
+                    //TODO Add Validation
+                    mainController.update(brandUpdate.text, yearUpdate.text, registrationUpdate.text, parseDouble(rateUpdate.text), isAvailableUpdate.isSelected, Date.valueOf(dateRentedUpdate.value), Date.valueOf(dateReturnUpdate.value), fuelSourceUpdate.text)
+                }
             }
         }
         form {
