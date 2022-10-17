@@ -18,7 +18,7 @@ class MyView: View() {
 
     private val mainController : MainController by inject()
 
-    val filterOptions = FXCollections.observableArrayList("Brand", "FuelSource", "IsAvailable", "Year")
+    //val filterOptions = FXCollections.observableArrayList("Brand", "FuelSource", "IsAvailable", "Year")
 
     var brand: TextField by singleAssign()
     var year: TextField by singleAssign()
@@ -39,6 +39,8 @@ class MyView: View() {
     var dateRentedUpdate: DatePicker by singleAssign()
     var dateReturnUpdate: DatePicker by singleAssign()
     var fuelSourceUpdate: TextField by singleAssign()
+
+    var filter: TextField by singleAssign()
 
     var textArea : TextArea by singleAssign()
 
@@ -134,13 +136,10 @@ class MyView: View() {
                         action { mainController.list(textArea) }
                     }
                     hbox {
-                        field("Filter By") {
-                            combobox<String> {
-                                items = filterOptions
-                            }
-                            textfield()
+                        field("Filter By Brand") {
+                            filter = textfield()
                             button("Filter") {
-                                action { println("Wrote to database!") }
+                                action { mainController.filter(filter.text, textArea) }
                             }
                         }
                     }
