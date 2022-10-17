@@ -24,24 +24,9 @@ class MainController: Controller() {
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/car-rental", "root", "")
             st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)
             rs = st.executeQuery("SELECT * FROM `cars`")
-
-            /*
-            if(rs.next()) {
-                println(rs.getString("id"))
-                println(rs.getString("brand"))
-                println(rs.getString("year"))
-                println(rs.getString("registration"))
-                println(rs.getString("rate"))
-                println(rs.getString("isAvailable"))
-                println(rs.getString("dateRented"))
-                println(rs.getString("dateReturn"))
-                println(rs.getString("fuelSource"))
-            }
-
-             */
         }
         catch (e: Exception) {
-
+            print(e)
         }
     }
 
@@ -114,20 +99,6 @@ class MainController: Controller() {
                rateUpdate : TextField, isAvailableUpdate : CheckBox, dateRentedUpdate : DatePicker, dateReturnUpdate : DatePicker, fuelSourceUpdate : TextField) {
         rs = st.executeQuery("SELECT * FROM `cars` WHERE ID = " + id)
 
-        /*
-        if(rs.next()) {
-            println(rs.getString("id"))
-            println(rs.getString("brand"))
-            println(rs.getString("year"))
-            println(rs.getString("registration"))
-            println(rs.getString("rate"))
-            println(rs.getString("isAvailable"))
-            println(rs.getString("dateRented"))
-            println(rs.getString("dateReturn"))
-            println(rs.getString("fuelSource"))
-        }
-         */
-
         if(rs.next()) {
             brandUpdate.text = rs.getString("brand")
             yearUpdate.text = rs.getString("year")
@@ -147,6 +118,26 @@ class MainController: Controller() {
 
         if(rs.next()) {
             rs.deleteRow()
+        }
+    }
+
+    fun filter(filterText : String, textArea : TextArea) {
+        rs = st.executeQuery("SELECT * FROM `cars` WHERE brand = " + "'" + filterText + "'")
+
+        textArea.clear()
+
+        if(rs.next()) {
+            textArea.appendText("ID: " + rs.getString("id"))
+            textArea.appendText("\nBrand: " + rs.getString("brand"))
+            textArea.appendText("\nYear: " + rs.getString("year"))
+            textArea.appendText("\nRegistration: " + rs.getString("registration"))
+            textArea.appendText("\nRate: " + rs.getDouble("rate"))
+            textArea.appendText("\nIs Available: " + rs.getString("isAvailable"))
+            textArea.appendText("\nDate Rented: " + rs.getDate("dateRented"))
+            textArea.appendText("\nDate Return: " + rs.getDate("dateReturn"))
+            textArea.appendText("\nFuel Source: " + rs.getString("fuelSource"))
+            textArea.appendText("\n------------------------------------")
+            textArea.appendText("\n")
         }
     }
 }
