@@ -5,7 +5,6 @@ import javafx.scene.control.DatePicker
 import javafx.scene.control.TextArea
 import javafx.scene.control.TextField
 import tornadofx.Controller
-import java.lang.Double.parseDouble
 import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.ResultSet
@@ -95,6 +94,7 @@ class MainController: Controller() {
 
     }
 
+    /*
     fun search(id : Int, brandUpdate : TextField, yearUpdate : TextField, registrationUpdate : TextField,
                rateUpdate : TextField, isAvailableUpdate : CheckBox, dateRentedUpdate : DatePicker, dateReturnUpdate : DatePicker, fuelSourceUpdate : TextField) {
         rs = st.executeQuery("SELECT * FROM `cars` WHERE ID = " + id)
@@ -111,6 +111,38 @@ class MainController: Controller() {
         }
 
         //return rs
+    }
+
+     */
+
+    fun search(id : Int) : Array<Any> {
+        rs = st.executeQuery("SELECT * FROM `cars` WHERE ID = " + id)
+
+        if(rs.next()) {
+            //brandUpdate.text = rs.getString("brand")
+            //yearUpdate.text = rs.getString("year")
+            //registrationUpdate.text = rs.getString("registration")
+            //rateUpdate.text = rs.getString("rate")
+            //isAvailableUpdate.isSelected = rs.getString("isAvailable").equals("Y")
+            //dateRentedUpdate.value = rs.getDate("dateRented").toLocalDate()
+            //dateReturnUpdate.value = rs.getDate("dateReturn").toLocalDate()
+            //fuelSourceUpdate.text = rs.getString("fuelSource")
+
+            return arrayOf(
+                rs.getString("brand"),
+                rs.getString("year"),
+                rs.getString("registration"),
+                rs.getString("rate"),
+                rs.getString("isAvailable").equals("Y"),
+                rs.getDate("dateRented").toLocalDate(),
+                rs.getDate("dateReturn").toLocalDate(),
+                rs.getString("fuelSource")
+            )
+        }
+
+        return emptyArray()
+
+        //return list
     }
 
     fun delete(id : Int) {

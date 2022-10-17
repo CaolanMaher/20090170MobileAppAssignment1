@@ -13,12 +13,11 @@ import java.lang.Double.parseDouble
 import java.lang.Integer.parseInt
 import java.sql.Date
 import java.sql.ResultSet
+import java.time.LocalDate
 
 class MyView: View() {
 
     private val mainController : MainController by inject()
-
-    //val filterOptions = FXCollections.observableArrayList("Brand", "FuelSource", "IsAvailable", "Year")
 
     var brand: TextField by singleAssign()
     var year: TextField by singleAssign()
@@ -44,7 +43,7 @@ class MyView: View() {
 
     var textArea : TextArea by singleAssign()
 
-    //var rs : ResultSet? = null
+    var list = emptyArray<Any>()
 
     override val root = hbox(20) {
 
@@ -90,7 +89,20 @@ class MyView: View() {
                 hbox {
                     button("Search") {
                         //TODO Add Validation
-                        action { mainController.search(parseInt(idToSearch.text), brandUpdate, yearUpdate, registrationUpdate, rateUpdate, isAvailableUpdate, dateRentedUpdate, dateReturnUpdate, fuelSourceUpdate) }
+                        action {
+                            list = mainController.search(parseInt(idToSearch.text))
+
+                            if (list.isNotEmpty()) {
+                                brandUpdate.text = list[0].toString()
+                                yearUpdate.text = list[1].toString()
+                                registrationUpdate.text = list[2].toString()
+                                rateUpdate.text = list[3].toString()
+                                isAvailableUpdate.isSelected = list[4] == "Y"
+                                dateRentedUpdate.value = list[5] as LocalDate?
+                                dateReturnUpdate.value = list[6] as LocalDate?
+                                fuelSourceUpdate.text = list[7].toString()
+                            }
+                        }
                     }
                     button("Delete") {
                         //TODO Add Validation
