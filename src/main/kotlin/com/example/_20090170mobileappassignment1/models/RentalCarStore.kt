@@ -7,5 +7,5 @@ interface RentalCarStore {
     fun create(rentalCar: RentalCarModel)
     fun update(rentalCar: RentalCarModel)
     fun delete(id: Int)
-    fun filter(filterText: String) : List<RentalCarModel>
+    fun filter(filterByText : String, filterText: String) : List<RentalCarModel>
 }

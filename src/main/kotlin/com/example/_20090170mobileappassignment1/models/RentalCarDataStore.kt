@@ -127,8 +127,14 @@ class RentalCarDataStore : RentalCarStore{
         }
     }
 
-    override fun filter(filterText: String) : List<RentalCarModel>{
-        rs = st.executeQuery("SELECT * FROM `cars` WHERE brand = " + "'" + filterText + "'")
+    override fun filter(filterByText : String, filterText: String) : List<RentalCarModel>{
+
+        if (filterByText == "Brand") {
+            rs = st.executeQuery("SELECT * FROM `cars` WHERE brand = " + "'" + filterText + "'")
+        }
+        else if (filterByText == "Fuel Source") {
+            rs = st.executeQuery("SELECT * FROM `cars` WHERE fuelSource = " + "'" + filterText + "'")
+        }
 
         var carList = mutableListOf<RentalCarModel>()
 
