@@ -10,7 +10,7 @@ data class RentalCarModel(
     var rate: Double = 0.0,
     //var isAvailable: Boolean = false,
     var isAvailable: String = "N",
-    var dateRented: LocalDate = LocalDate.parse("0000-00-00"),
-    var dateReturn: LocalDate = LocalDate.parse("0000-00-00"),
+    var dateRented: LocalDate = LocalDate.parse("1111-11-11"),
+    var dateReturn: LocalDate = LocalDate.parse("1111-11-11"),
     var fuelSource: String = ""
 )

@@ -69,7 +69,7 @@ class MainController: Controller() {
         carDataStore.delete(id)
     }
 
-    fun filter(filterText : String) : List<RentalCarModel> {
-        return carDataStore.filter(filterText)
+    fun filter(filterByText : String, filterText : String) : List<RentalCarModel> {
+        return carDataStore.filter(filterByText, filterText)
     }
 }
