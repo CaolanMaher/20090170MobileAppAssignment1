@@ -8,7 +8,8 @@ data class RentalCarModel(
     var year: String = "",
     var registration: String = "",
     var rate: Double = 0.0,
-    var isAvailable: Boolean = false,
+    //var isAvailable: Boolean = false,
+    var isAvailable: String = "N",
     var dateRented: LocalDate = LocalDate.parse("0000-00-00"),
     var dateReturn: LocalDate = LocalDate.parse("0000-00-00"),
     var fuelSource: String = ""
